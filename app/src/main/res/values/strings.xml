@@ -2,4 +2,6 @@
     <string name="app_name">MovieApp</string>
     <string name="logo">logo</string>
     <string name="footer">footer</string>
+    <string name="next">Next</string>
+    <string name="skip_intro">Skip Intro</string>
 </resources>
