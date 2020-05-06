@@ -66,6 +66,9 @@ dependencies {
     // Viewpager 2
     implementation "androidx.viewpager2:viewpager2:1.0.0-rc01"
 
+    // Spinkit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -19,6 +19,8 @@
 
     </androidx.viewpager.widget.ViewPager>
 
+    <include layout="@layout/layout_loading"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
