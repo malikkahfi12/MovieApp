@@ -21,7 +21,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     val sliderHandler = Handler()
     val TAG = "HomeFragment"
     val sliderRunnable = Runnable {
-        slide_pager.setCurrentItem(slide_pager.currentItem + 1)
+        var position = slide_pager.currentItem
+        position +=1
+        if (position >= sliderBannerAdapter.itemCount){
+            position = 0
+        }
+        slide_pager.setCurrentItem(position)
     }
     private val sliderBannerAdapter = BannerSliderAdapter(
         listOf(
@@ -30,12 +35,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             "The Call of the Wild"
             ),
             SliderBanner(
-                R.drawable.banner_4,
+                R.drawable.banner_2,
                 "El hoyo"
             ),
             SliderBanner(
                 R.drawable.banner_3,
                 "The Wretched"
+            ),
+            SliderBanner(
+                R.drawable.banner_4,
+                "The Last Full Measure"
             )
         )
     )
