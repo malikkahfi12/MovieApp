@@ -3,7 +3,6 @@ package com.example.movieapp.ui.intro
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -11,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
-import com.example.movieapp.model.IntroSlider
+import com.example.movieapp.data.model.intro.IntroSlider
 import com.example.movieapp.preference.PreferenceProvider
 import com.example.movieapp.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_intro.*

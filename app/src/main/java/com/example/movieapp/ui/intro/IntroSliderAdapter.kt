@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
-import com.example.movieapp.model.IntroSlider
+import com.example.movieapp.data.model.intro.IntroSlider
 import kotlinx.android.synthetic.main.item_slide_container.view.*
 
 class IntroSliderAdapter(private val introSlides: List<IntroSlider>) : RecyclerView.Adapter<IntroSliderAdapter.IntroSliderViewHolder>() {

@@ -1,4 +1,4 @@
-package com.example.movieapp.model
+package com.example.movieapp.data.model.intro
 
 data class IntroSlider(
     val title:String,

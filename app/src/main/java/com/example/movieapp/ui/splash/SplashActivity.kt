@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieapp.R
-import com.example.movieapp.model.IntroSlider
 import com.example.movieapp.preference.PreferenceProvider
 import com.example.movieapp.ui.intro.IntroActivity
 import com.example.movieapp.ui.main.MainActivity
