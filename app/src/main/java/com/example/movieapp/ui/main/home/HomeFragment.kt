@@ -2,11 +2,11 @@ package com.example.movieapp.ui.main.home
 
 import android.os.Bundle
 import android.os.Handler
-import android.transition.Slide
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
 import com.example.movieapp.data.model.banner.SliderBanner
@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     lateinit var viewModel: MainViewModel
+    lateinit var upComingAdapter : UpcomingAdapter
     val sliderHandler = Handler()
     val TAG = "HomeFragment"
     val sliderRunnable = Runnable {
@@ -36,7 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             ),
             SliderBanner(
                 R.drawable.banner_2,
-                "El hoyo"
+                "The Platform"
             ),
             SliderBanner(
                 R.drawable.banner_3,
@@ -61,14 +62,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 sliderHandler.postDelayed(sliderRunnable, 3000)
             }
         })
-
+        setupRecyclerView()
         viewModel.upcomingMovie.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
                     hideProgressBar()
                     it.data?.let { newsResponse ->
-
-                        Log.d(TAG, "Data : ${newsResponse.results.size.toString()}" )
+                        upComingAdapter.differ.submitList(newsResponse.results)
                     }
                 }
                 is Resource.Error -> {
@@ -83,6 +83,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         })
 
+    }
+
+    private fun setupRecyclerView() {
+        upComingAdapter = UpcomingAdapter()
+        rvUpcomingMovie.apply {
+            adapter = upComingAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
 
