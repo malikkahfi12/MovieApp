@@ -8,6 +8,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
+import com.example.movieapp.data.network.ApiInterface
+import com.example.movieapp.data.network.NetworkConnectionInterceptor
 import com.example.movieapp.data.repository.UpcomingRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,8 +20,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val upcomingRepository = UpcomingRepository()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = ApiInterface(networkConnectionInterceptor)
+        val upcomingRepository = UpcomingRepository(api)
         val movieViewModelProviderFactory = MovieViewModelProviderFactory(upcomingRepository)
 
         viewModel = ViewModelProvider(this, movieViewModelProviderFactory).get(MainViewModel::class.java)

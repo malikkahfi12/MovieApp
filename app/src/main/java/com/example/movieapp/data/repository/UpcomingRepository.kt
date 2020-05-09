@@ -1,12 +1,17 @@
 package com.example.movieapp.data.repository
 
-import com.example.movieapp.data.network.RetrofitInstance
+import com.example.movieapp.data.network.ApiInterface
 import com.example.movieapp.data.network.SafeApiRequest
 
-class UpcomingRepository() : SafeApiRequest() {
+class UpcomingRepository(
+    private val api : ApiInterface
+) : SafeApiRequest() {
 
     suspend fun getUpcomingMovies(
         apiKey:String
-    )  = RetrofitInstance.api.getListUpcomingMovie(apiKey)
+    )  = api.getListUpcomingMovie(apiKey)
 
+    suspend fun getNowPlayingMovies(
+        apiKey: String
+    ) = api.getListNowPlaying(apiKey)
 }

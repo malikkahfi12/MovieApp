@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.upcoming.Result
+import com.example.movieapp.data.model.popular.Result
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder>(){
-    inner class UpcomingViewHolder(view : View) : RecyclerView.ViewHolder(view)
+class PopularAdapter : RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Result>(){
         override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
@@ -22,11 +21,13 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder>
         override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
             return oldItem == newItem
         }
+
     }
+    inner class PopularViewHolder(view : View) : RecyclerView.ViewHolder(view)
 
     val differ = AsyncListDiffer(this, differCallback)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
-        return UpcomingViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
+        return PopularViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_movie,
                 parent,
@@ -36,8 +37,7 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder>
     }
 
     override fun getItemCount(): Int = differ.currentList.size
-
-    override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
         val upcomingMovie = differ.currentList[position]
         holder.itemView.apply {
             Glide.with(this).load("https://image.tmdb.org/t/p/w500${upcomingMovie.posterPath}").into(img_poster)
@@ -45,5 +45,4 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder>
             text_vote.text = upcomingMovie.voteAverage.toString()
         }
     }
-
 }

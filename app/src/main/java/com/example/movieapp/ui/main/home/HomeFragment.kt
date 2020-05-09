@@ -19,6 +19,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     lateinit var viewModel: MainViewModel
     lateinit var upComingAdapter : UpcomingAdapter
+    lateinit var popularAdapter: PopularAdapter
+
     val sliderHandler = Handler()
     val TAG = "HomeFragment"
     val sliderRunnable = Runnable {
@@ -83,12 +85,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         })
 
+        viewModel.playNowMovie.observe(viewLifecycleOwner, Observer {
+            when(it){
+                is Resource.Success -> {
+                    hideProgressBar()
+                    it.data?.let { newsResponse ->
+                        popularAdapter.differ.submitList(newsResponse.results)
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    it.message?.let {
+                        Log.e(TAG, "An Error occured : $it")
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        })
+
     }
 
     private fun setupRecyclerView() {
         upComingAdapter = UpcomingAdapter()
+        popularAdapter = PopularAdapter()
         rvUpcomingMovie.apply {
             adapter = upComingAdapter
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
+        rvNowPlaying.apply {
+            adapter = popularAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         }
     }
