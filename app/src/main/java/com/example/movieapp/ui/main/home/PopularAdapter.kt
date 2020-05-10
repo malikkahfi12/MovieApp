@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.popular.Result
+import com.example.movieapp.data.model.upcoming.Result
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class PopularAdapter : RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {

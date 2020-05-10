@@ -1,6 +1,5 @@
 package com.example.movieapp.data.network
 
-import com.example.movieapp.data.model.popular.PopularMovie
 import com.example.movieapp.data.model.upcoming.UpcomingMovie
 import com.example.movieapp.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
@@ -25,7 +24,7 @@ interface ApiInterface {
         @Query(value = "api_key") apiKey: String,
         @Query(value = "language") languange: String = "en-US",
         @Query(value = "page") pages: Int = 1
-    ) : Response<PopularMovie>
+    ) : Response<UpcomingMovie>
 
     companion object{
         operator fun invoke(

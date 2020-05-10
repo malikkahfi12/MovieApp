@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
@@ -65,6 +66,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         })
         setupRecyclerView()
+
+        // onClick
+        upComingAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("upcoming", it)
+            }
+            findNavController().navigate(
+                R.id.action_homeFragment_to_detailsFragment,
+                bundle
+            )
+        }
+
         viewModel.upcomingMovie.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
@@ -74,7 +87,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
+//                    hideProgressBar()
+                    errorNetwork()
                     it.message?.let {
                         Log.e(TAG, "An Error occured : $it")
                     }
@@ -88,19 +102,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.playNowMovie.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
-                    hideProgressBar()
+//                    hideProgressBar()
                     it.data?.let { newsResponse ->
                         popularAdapter.differ.submitList(newsResponse.results)
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
+//                    hideProgressBar()
                     it.message?.let {
                         Log.e(TAG, "An Error occured : $it")
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar()
+//                    showProgressBar()
                 }
             }
         })
@@ -121,12 +135,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
 
+    private fun errorNetwork(){
+        group_connections.visibility = View.VISIBLE
+        progress_bar.visibility = View.INVISIBLE
+        group_items.visibility = View.INVISIBLE
+    }
+
     private fun hideProgressBar() {
-        progress_bar.visibility = View.GONE
+        progress_bar.visibility = View.INVISIBLE
+        group_items.visibility = View.VISIBLE
     }
 
     private fun showProgressBar(){
         progress_bar.visibility = View.VISIBLE
+        group_items.visibility = View.INVISIBLE
     }
 
     override fun onPause() {
