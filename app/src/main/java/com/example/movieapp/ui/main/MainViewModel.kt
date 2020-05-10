@@ -3,6 +3,7 @@ package com.example.movieapp.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieapp.data.model.details.Details
 import com.example.movieapp.data.model.upcoming.UpcomingMovie
 import com.example.movieapp.data.repository.UpcomingRepository
 import com.example.movieapp.util.ApiException
@@ -17,10 +18,11 @@ class MainViewModel(
 ) : ViewModel() {
     val upcomingMovie : MutableLiveData<Resource<UpcomingMovie>> = MutableLiveData()
     val playNowMovie : MutableLiveData<Resource<UpcomingMovie>> = MutableLiveData()
-
+    val detailsMovie : MutableLiveData<Resource<Details>> = MutableLiveData()
     init {
         getUpcomingMovie(API_KEY)
         getNowPlayingMovie(API_KEY)
+
     }
 
     private fun getUpcomingMovie(apikey : String) = viewModelScope.launch {
@@ -48,6 +50,18 @@ class MainViewModel(
         }
     }
 
+    fun getDetailsMovies(apikey: String, movieId : Int ) = viewModelScope.launch {
+        detailsMovie.postValue(Resource.Loading())
+        try {
+            val response = upcomingRepository.getDetailsMovies(apikey, movieId)
+            detailsMovie.postValue(handleDetailsMovie(response))
+        } catch (e : ApiException){
+            detailsMovie.postValue(Resource.Error(e.message.toString()))
+        } catch (e : NoInternetException){
+            detailsMovie.postValue(Resource.Error(e.message.toString()))
+        }
+    }
+
     private fun handleUpcomingMovie(response: Response<UpcomingMovie>) : Resource<UpcomingMovie>{
         if (response.isSuccessful){
             response.body()?.let {
@@ -58,6 +72,15 @@ class MainViewModel(
     }
 
     private fun handlePopularMovie(response: Response<UpcomingMovie>) : Resource<UpcomingMovie>{
+        if (response.isSuccessful){
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleDetailsMovie(response: Response<Details>) : Resource<Details>{
         if (response.isSuccessful){
             response.body()?.let {
                 return Resource.Success(it)

@@ -1,5 +1,6 @@
 package com.example.movieapp.data.network
 
+import com.example.movieapp.data.model.details.Details
 import com.example.movieapp.data.model.upcoming.UpcomingMovie
 import com.example.movieapp.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
@@ -8,6 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -25,6 +27,14 @@ interface ApiInterface {
         @Query(value = "language") languange: String = "en-US",
         @Query(value = "page") pages: Int = 1
     ) : Response<UpcomingMovie>
+
+    @GET("3/movie/{movie_id}")
+    suspend fun getDetailsMovie(
+        @Path("movie_id") movieId : Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") languange: String = "en-US",
+        @Query("append_to_response") appendToResponse : String = "videos"
+    ) : Response<Details>
 
     companion object{
         operator fun invoke(

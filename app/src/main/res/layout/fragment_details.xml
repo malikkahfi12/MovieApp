@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Group
-            android:id="@+id/group2"
+            android:id="@+id/group_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:constraint_referenced_ids="text_title_details,img_backdrop,img_background,img_poster_path,img_background,text_description_details,text_release_details,text_story_details,text_trailers_details" />
@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
-            android:src="@drawable/banner_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +43,6 @@
             android:layout_height="180dp"
             android:background="@drawable/bg_images_poster"
             android:outlineProvider="background"
-            android:src="@drawable/poster_path"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.054"
@@ -100,7 +98,7 @@
             android:layout_marginStart="8dp"
             android:paddingVertical="4dp"
             android:textSize="18sp"
-            android:text="Story Lines"
+            android:text="@string/story_lines"
             android:textColor="@color/secondary"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,13 +109,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Twelve strangers wake up in a clearing. They don't know where they are—or how they got there. In the shadow of a dark internet conspiracy theory, ruthless elitists gather at a remote location to hunt humans for sport. But their master plan is about to be derailed when one of the hunted turns the tables on her pursuers."
+            tools:text="Twelve strangers wake up in a clearing. They don't know where they are—or how they got there. In the shadow of a dark internet conspiracy theory, ruthless elitists gather at a remote location to hunt humans for sport. But their master plan is about to be derailed when one of the hunted turns the tables on her pursuers."
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_story_details" />
 
         <include
+            android:id="@+id/progress_bar"
             layout="@layout/layout_loading"
             android:layout_width="0dp"
             android:layout_height="0dp"

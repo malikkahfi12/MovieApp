@@ -14,4 +14,9 @@ class UpcomingRepository(
     suspend fun getNowPlayingMovies(
         apiKey: String
     ) = api.getListNowPlaying(apiKey)
+
+    suspend fun getDetailsMovies(
+        apiKey: String,
+        movieId : Int
+    ) = api.getDetailsMovie(movieId, apiKey)
 }
