@@ -41,7 +41,7 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() 
         val upcomingMovie = differ.currentList[position]
         holder.itemView.apply {
             Glide.with(this).load("https://image.tmdb.org/t/p/w500${upcomingMovie.posterPath}").into(img_poster)
-            text_title.text = upcomingMovie.title
+            text_title_details.text = upcomingMovie.title
             text_vote.text = upcomingMovie.voteAverage.toString()
         }
     }

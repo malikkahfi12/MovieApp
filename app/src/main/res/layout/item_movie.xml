@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cv_poster">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_title_details"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

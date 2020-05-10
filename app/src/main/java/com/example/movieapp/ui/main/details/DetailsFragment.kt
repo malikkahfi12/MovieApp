@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.movieapp.R
 import com.example.movieapp.ui.main.MainActivity
 import com.example.movieapp.ui.main.MainViewModel
+import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -19,5 +20,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         viewModel = (activity as MainActivity).viewModel
         val article = args.upcoming
         Log.d(TAG, article.id.toString())
+
+        img_poster_path.clipToOutline = true
     }
 }

@@ -1,7 +1,6 @@
 package com.example.movieapp.ui.main.home
 
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -44,7 +43,7 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.UpcomingViewHolder>
         val upcomingMovie = differ.currentList[position]
         holder.itemView.apply {
             Glide.with(this).load("https://image.tmdb.org/t/p/w500${upcomingMovie.posterPath}").into(img_poster)
-            text_title.text = upcomingMovie.title
+            text_title_details.text = upcomingMovie.title
             text_vote.text = upcomingMovie.voteAverage.toString()
             setOnClickListener{
                 onItemClickListener?.let {

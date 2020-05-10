@@ -22,8 +22,8 @@ class IntroSliderAdapter(private val introSlides: List<IntroSlider>) : RecyclerV
     }
 
     inner class IntroSliderViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        private val textTitle = view.text_title
-        private val textDescription = view.text_description
+        private val textTitle = view.text_title_details
+        private val textDescription = view.text_description_details
         private val imageIcon = view.image_icon
 
         fun bind(introSlider: IntroSlider){
