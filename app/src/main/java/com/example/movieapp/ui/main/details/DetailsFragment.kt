@@ -13,7 +13,10 @@ import com.example.movieapp.ui.main.MainActivity
 import com.example.movieapp.ui.main.MainViewModel
 import com.example.movieapp.util.Constants.Companion.API_KEY
 import com.example.movieapp.util.Constants.Companion.BASE_URL_IMG
+import com.example.movieapp.util.Constants.Companion.URL_YOUTUBE
 import com.example.movieapp.util.Resource
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.android.synthetic.main.fragment_details.*
 import java.text.SimpleDateFormat
 
@@ -68,6 +71,16 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         text_release_details.text = "Release, $desiredFormat"
         // Stroy Lines
         text_description_details.text = it.overview
+        trailers_video.addYouTubePlayerListener(object  : AbstractYouTubePlayerListener(){
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                for (item in it.videos.results){
+                    youTubePlayer.cueVideo(item.key, 0f)
+                }
+            }
+        })
+
+
+
     }
 
     private fun hideProgressBar(){
