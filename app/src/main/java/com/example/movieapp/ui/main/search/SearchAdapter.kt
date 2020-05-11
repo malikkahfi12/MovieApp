@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.main.home
+package com.example.movieapp.ui.main.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.model.upcoming.Result
+import com.example.movieapp.data.model.search.Result
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class PopularAdapter : RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
+class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Result>(){
         override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
@@ -23,37 +23,34 @@ class PopularAdapter : RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() 
         }
 
     }
-    inner class PopularViewHolder(view : View) : RecyclerView.ViewHolder(view)
 
-    val differ = AsyncListDiffer(this, differCallback)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
-        return PopularViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_movie,
-                parent,
-                false
-            )
+    inner class SearchViewHolder(view : View) : RecyclerView.ViewHolder(view)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
+        return SearchViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         )
     }
 
+    val differ = AsyncListDiffer(this, differCallback)
     override fun getItemCount(): Int = differ.currentList.size
 
     private var onItemClickListener:((Result) -> Unit)? = null
-    override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
-        val upcomingMovie = differ.currentList[position]
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+        val searchMovie = differ.currentList[position]
         holder.itemView.apply {
-            Glide.with(this).load("https://image.tmdb.org/t/p/w500${upcomingMovie.posterPath}").into(img_poster)
-            text_title_details.text = upcomingMovie.title
-            text_vote.text = upcomingMovie.voteAverage.toString()
+            Glide.with(this).load("https://image.tmdb.org/t/p/w500${searchMovie.posterPath}").into(img_poster)
+            text_title_details.text = searchMovie.title
+            text_vote.text = searchMovie.voteAverage.toString()
             setOnClickListener{
                 onItemClickListener?.let {
-                    it(upcomingMovie)
+                    it(searchMovie)
                 }
             }
         }
     }
 
-    fun setOnItemClickListener(listener: (Result) -> Unit){
+    fun setOnItemClickListener(listener: ((Result) -> Unit)){
         onItemClickListener = listener
     }
 

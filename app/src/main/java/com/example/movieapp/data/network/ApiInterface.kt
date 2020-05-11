@@ -1,6 +1,7 @@
 package com.example.movieapp.data.network
 
 import com.example.movieapp.data.model.details.Details
+import com.example.movieapp.data.model.search.Search
 import com.example.movieapp.data.model.upcoming.UpcomingMovie
 import com.example.movieapp.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
@@ -35,6 +36,14 @@ interface ApiInterface {
         @Query("language") languange: String = "en-US",
         @Query("append_to_response") appendToResponse : String = "videos"
     ) : Response<Details>
+
+    @GET("3/search/movie")
+    suspend fun getSearchMovie(
+        @Query("api_key") apiKey: String,
+        @Query("page") pages: Int,
+        @Query("query") query : String,
+        @Query("language") languange: String = "en-US"
+    ) : Response<Search>
 
     companion object{
         operator fun invoke(

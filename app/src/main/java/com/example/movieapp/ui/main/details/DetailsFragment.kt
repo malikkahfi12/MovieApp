@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
@@ -51,25 +52,20 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
         })
         img_poster_path.clipToOutline = true
+
     }
 
     private fun showDataDetails(it: Details) {
-        // Backdrop
         Glide.with(this).load("https://image.tmdb.org/t/p/w500${it.backdropPath}").into(img_backdrop)
-        // Poster
         Glide.with(this).load("$BASE_URL_IMG${it.posterPath}").into(img_poster_path)
-        // title
         text_title_details.text = it.title
-        // genres
         for (item in it.genres){
             text_trailers_details.text = "${item.name}, "
         }
-        // Release date
         val formatter = SimpleDateFormat("yyyy-MM-dd")
         val date = formatter.parse(it.releaseDate)
         val desiredFormat = SimpleDateFormat("dd MMM yyyy").format(date)
         text_release_details.text = "Release, $desiredFormat"
-        // Stroy Lines
         text_description_details.text = it.overview
         trailers_video.addYouTubePlayerListener(object  : AbstractYouTubePlayerListener(){
             override fun onReady(youTubePlayer: YouTubePlayer) {

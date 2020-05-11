@@ -5,12 +5,11 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
 import com.example.movieapp.data.network.ApiInterface
 import com.example.movieapp.data.network.NetworkConnectionInterceptor
-import com.example.movieapp.data.repository.UpcomingRepository
+import com.example.movieapp.data.repository.MovieRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
         val api = ApiInterface(networkConnectionInterceptor)
-        val upcomingRepository = UpcomingRepository(api)
+        val upcomingRepository = MovieRepository(api)
         val movieViewModelProviderFactory = MovieViewModelProviderFactory(upcomingRepository)
 
         viewModel = ViewModelProvider(this, movieViewModelProviderFactory).get(MainViewModel::class.java)

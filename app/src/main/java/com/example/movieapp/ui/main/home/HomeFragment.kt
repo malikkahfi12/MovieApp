@@ -78,6 +78,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         }
 
+        popularAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("upcoming", it)
+            }
+            findNavController().navigate(
+                R.id.action_homeFragment_to_detailsFragment,
+                bundle
+            )
+        }
+
+
+
         viewModel.upcomingMovie.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
@@ -102,19 +114,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.playNowMovie.observe(viewLifecycleOwner, Observer {
             when(it){
                 is Resource.Success -> {
-//                    hideProgressBar()
+                    hideProgressBar()
                     it.data?.let { newsResponse ->
                         popularAdapter.differ.submitList(newsResponse.results)
                     }
                 }
                 is Resource.Error -> {
-//                    hideProgressBar()
+                    hideProgressBar()
                     it.message?.let {
                         Log.e(TAG, "An Error occured : $it")
                     }
                 }
                 is Resource.Loading -> {
-//                    showProgressBar()
+                    showProgressBar()
                 }
             }
         })

@@ -3,7 +3,7 @@ package com.example.movieapp.data.repository
 import com.example.movieapp.data.network.ApiInterface
 import com.example.movieapp.data.network.SafeApiRequest
 
-class UpcomingRepository(
+class MovieRepository(
     private val api : ApiInterface
 ) : SafeApiRequest() {
 
@@ -19,4 +19,10 @@ class UpcomingRepository(
         apiKey: String,
         movieId : Int
     ) = api.getDetailsMovie(movieId, apiKey)
+
+    suspend fun getSearchMovie(
+        apiKey: String,
+        pages : Int,
+        query : String
+    ) = api.getSearchMovie(apiKey, pages, query)
 }
