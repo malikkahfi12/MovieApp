@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.learetechno.movieapp.R
@@ -50,6 +51,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             }
         })
         img_poster_path.clipToOutline = true
+        back_button.setOnClickListener(){
+            findNavController().navigateUp()
+        }
 
     }
 

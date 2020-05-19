@@ -18,15 +18,12 @@
             android:layout_height="match_parent"
             app:constraint_referenced_ids="text_title_details,img_backdrop,img_background,img_poster_path,img_background,text_description_details,text_release_details,text_story_details,text_trailers_details, text_trailers, trailers_video" />
 
-
-
         <ImageView
             android:id="@+id/img_backdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
